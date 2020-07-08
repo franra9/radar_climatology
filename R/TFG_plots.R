@@ -1,16 +1,16 @@
 #TFG plots. Aquí faig els plots dels rasters.
 
-library(RColorBrewer)
-require(rgdal)
-require(maptools)
-require(raster)
-require(ggplot2)
-#require(jpeg)
-library(rasterVis)
-library(sp)
-library(sf)
-library(gridExtra)
-library(latticeExtra)
+#library(RColorBrewer)
+#require(rgdal)
+#require(maptools)
+#require(raster)
+#require(ggplot2)
+##require(jpeg)
+#library(rasterVis)
+#library(sp)
+#library(sf)
+#library(gridExtra)
+#library(latticeExtra)
 
 tif1 <- raster("/media/francesc/disc_extern_francesc/radar_SMC_ppt_TFG/CMP24KG_24h/monthly_agg_corr/clim/monthly_agg_XXX_RNN_01_mean_CMP24KG_24h_A.tif")
 

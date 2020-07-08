@@ -3,10 +3,10 @@
 
 setwd("/home/francesc/data/")
 
-library(tiff)
-library(sp)
-library(raster)
-library(rgdal)
+#library(tiff)
+#library(sp)
+#library(raster)
+#library(rgdal)
 
 sum <- 0
 

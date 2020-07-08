@@ -1,10 +1,10 @@
 # aquest script aplica el factor corrector a les sumes mensuals depenent de la quantitat de dies sense dades
 #FRA 07 12 2019
 
-library(tiff)
-library(sp)
-library(raster)
-library(rgdal)
+#library(tiff)
+#library(sp)
+#library(raster)
+#library(rgdal)
 
 setwd("/media/francesc/disc_extern_francesc/radar_SMC_ppt_TFG/CMP24KG_24h/")
 

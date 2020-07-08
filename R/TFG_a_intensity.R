@@ -6,11 +6,11 @@ ini <- Sys.time()
 
 setwd("/home/francesc/TFG/")
 
-library(tiff)
-library(sp)
-library(raster)
-library(rgdal)
-library(ggplot2)
+#library(tiff)
+#library(sp)
+#library(raster)
+#library(rgdal)
+#library(ggplot2)
 
 date <- as.Date("2013-01-01")
 

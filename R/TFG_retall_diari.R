@@ -91,10 +91,10 @@
 
 setwd("/home/francesc/TFG/")
 
-library(tiff)
-library(sp)
-library(raster)
-library(rgdal)
+#library(tiff)
+#library(sp)
+#library(raster)
+#library(rgdal)
 
 date <- as.Date("2013-01-01")
 

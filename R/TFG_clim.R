@@ -7,11 +7,11 @@
 # - Mitjana de cada estació
 #=======================================
 
-library(tiff)
-library(sp)
-library(raster)
-library(rgdal)
-library(ggplot2)
+#library(tiff)
+#library(sp)
+#library(raster)
+#library(rgdal)
+#library(ggplot2)
 
 # Mitjana anual
 
