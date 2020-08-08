@@ -47,4 +47,4 @@ print(month)
     }
   }
 }
-  print(year)
+  print(year); print(paste0("Anual accumulation in each point of the grid saved at saved at ",fileo))

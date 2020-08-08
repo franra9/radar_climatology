@@ -1,4 +1,4 @@
-# aquest script aplica el factor corrector a les sumes mensuals depenent de la quantitat de dies sense dades
+# this script applies a correction factor to the monthly sum depending on the number of missing days.
 #FRA 07 12 2019
 
 #library(tiff)
@@ -6,13 +6,14 @@
 #library(raster)
 #library(rgdal)
 
-setwd("/media/francesc/disc_extern_francesc/radar_SMC_ppt_TFG/CMP24KG_24h/")
+wd <- "~/results/radar_SMC_ppt_TFG/CMP24KG_24h/"
+mis_fil_perc <- "/home/francesc/data/radar_SMC_ppt_TFG/CMP24KG_24h/percentatge_dies_sense_dades_13-19.txt"
 
-wd <- "/media/francesc/disc_extern_francesc/radar_SMC_ppt_TFG/CMP24KG_24h/"
+setwd(wd)
 
 llindar <- 80
 
-percent <- read.table("percentatge_dies_sense_dades_13-19.txt", header = T)
+percent <- read.table(mis_fil_perc, header = T)
 
 for(i in 1:length(percent$year)){
   
@@ -44,4 +45,6 @@ for(i in 1:length(percent$year)){
   writeRaster(tif, fileout, overwrite=T)
   }
 }
+
+print(paste0("Monthly corrected accumulations with a threshold of ",llindar ,"% of existing data have been saved at ", fileout))
 

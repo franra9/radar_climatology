@@ -91,6 +91,8 @@
 
 setwd("/home/francesc/TFG/")
 
+missing_files <- "/media/francesc/disc_extern_francesc/radar_SMC_ppt_TFG/CMP24KG_24h/percentatge_dies_sense_dades_13-19.txt"
+
 #library(tiff)
 #library(sp)
 #library(raster)
@@ -186,7 +188,7 @@ fileout <- paste0("/media/francesc/disc_extern_francesc/radar_SMC_ppt_TFG/CMP24K
                   mes,"_",
                   "CMP24KG_24h_A.tif")
 
-# writeRaster(sum, fileout, overwrite=T)
+writeRaster(sum, fileout, overwrite=T)
 
 sum <- 0
 
@@ -208,7 +210,9 @@ if(date > "2019-10-25"){
 
 print(df_exist)
 
-# write.table(df_exist,"/media/francesc/disc_extern_francesc/radar_SMC_ppt_TFG/CMP24KG_24h/percentatge_dies_sense_dades_13-19.txt",row.names=F)
+write.table(df_exist, missing_files, row.names=F)
+
+print("% of monthly missing files saved at ", missing_files)
 
 # plot(area_est)
 
