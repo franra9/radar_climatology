@@ -29,7 +29,7 @@ gpclibPermit()
 rep.dir <- "/home/francesc/repositories/radar_climatology/"
 data.dir <- "/home/francesc/data/radar_SMC_ppt_TFG/"
 outdir <- "/home/francesc/results/radar_climatology/"
-shp.dir <- "/home/francesc/data/radar_SMC_ppt_TFG/shape/"
+shp.dir <- "/home/francesc/data/radar_SMC_ppt_TFG/shape/LIASE_extremes.shp"
  
 print("Configuration has been loaded, with this parameters:")
 cat("Repository directory: "); print(rep.dir)
