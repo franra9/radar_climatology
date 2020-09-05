@@ -17,7 +17,22 @@ hourly_file  <- file.exists(paste0(data.dir,"/CMPAC1C_1h/",yyyy,"/",mm,"/",dd,"/
 exist_hourly <- paste0("/CMPAC1C_1h/",yyyy,"/",mm,"/",dd,"/XXX_RN1_",yyyy,mm,dd,"_",hh,"00_CMPAC1C_1h.tif")
 exist_hourlyi <- exist_hourly[hourly_file]
 
-avail_files <- list("daily"=exist_dailyi, "hourly"=exist_hourlyi)
-return(avail_files)
+available.files <- list("daily"=exist_dailyi, "hourly"=exist_hourlyi, "dat_day"=daily_file, "dat_hour"=hourly_file)
+
+monthly.files <- list(NULL)
+jan<-feb <-mar<- apr<- may<- jun<- jul<- aug<- sep<- oct<- nov<- dec<- c()
+
+for(daily_file){
+	if(mm=="01"){jan <- append(jan, daily_file) }
+	if(mm=="02"){jan <- append(jan, daily_file) }
+	if(mm=="03"){jan <- append(jan, daily_file) }
+	if(mm=="04"){jan <- append(jan, daily_file) }
+	if(mm=="05"){jan <- append(jan, daily_file) }
+	.
+	.
+	.
+	if(mm=="12"){}
+}
+monthly.files <- 
 }
 

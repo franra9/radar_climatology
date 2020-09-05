@@ -24,6 +24,7 @@ source("./data_check.R")
 
 available.files <- exists.data(date.ini, date.fin, data.dir)
 
+#load funtions to cut files
 source("./cut.R")
 
 #daily_cut
@@ -31,3 +32,7 @@ cut_files(available.files$daily, shp.dir, outdir)
 
 #hourly cut
 cut_files(available.files$hourly, shp.dir, outdir)
+
+#load functions to do temporal aggregations
+#monthly stats
+monthly_stats()
