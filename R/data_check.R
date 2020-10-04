@@ -68,39 +68,37 @@ for(mmddhh in mmddhh[exist_hrly]){
 	if(mon == "10"){oct1 <- append(oct1, c(exist_hourlyi[j], yyyyh[j])) }
 	if(mon == "11"){nov1 <- append(nov1, c(exist_hourlyi[j], yyyyh[j])) }
 	if(mon == "12"){dec1 <- append(dec1, c(exist_hourlyi[j], yyyyh[j])) }
-print(j)
 j<- j+1
 }
 
-#try() because t() does not like NULL values
-
+#t() does not like NULL values
 #dayly
-try(tjan24 <- t(array(data = jan24, dim = c(2, length(jan24)/2))))
-try(tfeb24 <- t(array(data = feb24, dim = c(2, length(feb24)/2))))
-try(tmar24 <- t(array(data = mar24, dim = c(2, length(mar24)/2))))
-try(tapr24 <- t(array(data = apr24, dim = c(2, length(apr24)/2))))
-try(tmay24 <- t(array(data = may24, dim = c(2, length(may24)/2))))
-try(tjun24 <- t(array(data = jun24, dim = c(2, length(jun24)/2))))
-try(tjul24 <- t(array(data = jul24, dim = c(2, length(jul24)/2))))
-try(taug24 <- t(array(data = aug24, dim = c(2, length(aug24)/2))))
-try(tsep24 <- t(array(data = sep24, dim = c(2, length(sep24)/2))))
-try(toct24 <- t(array(data = oct24, dim = c(2, length(oct24)/2))))
-try(tnov24 <- t(array(data = nov24, dim = c(2, length(nov24)/2))))
-try(tdec24 <- t(array(data = dec24, dim = c(2, length(dec24)/2))))
+if(!is.null(jan24)){tjan24 <- t(array(data = jan24, dim = c(2, length(jan24)/2)))}
+if(!is.null(feb24)){tfeb24 <- t(array(data = feb24, dim = c(2, length(feb24)/2)))}
+if(!is.null(mar24)){tmar24 <- t(array(data = mar24, dim = c(2, length(mar24)/2)))}
+if(!is.null(apr24)){tapr24 <- t(array(data = apr24, dim = c(2, length(apr24)/2)))}
+if(!is.null(may24)){tmay24 <- t(array(data = may24, dim = c(2, length(may24)/2)))}
+if(!is.null(jun24)){tjun24 <- t(array(data = jun24, dim = c(2, length(jun24)/2)))}
+if(!is.null(jul24)){tjul24 <- t(array(data = jul24, dim = c(2, length(jul24)/2)))}
+if(!is.null(oct24)){taug24 <- t(array(data = aug24, dim = c(2, length(aug24)/2)))}
+if(!is.null(sep24)){tsep24 <- t(array(data = sep24, dim = c(2, length(sep24)/2)))}
+if(!is.null(oct24)){toct24 <- t(array(data = oct24, dim = c(2, length(oct24)/2)))}
+if(!is.null(nov24)){tnov24 <- t(array(data = nov24, dim = c(2, length(nov24)/2)))}
+if(!is.null(dec24)){tdec24 <- t(array(data = dec24, dim = c(2, length(dec24)/2)))}
 
 #hourly
-try(tjan1 <- t(array(data = jan1, dim = c(2, length(jan1)/2))))
-try(tfeb1 <- t(array(data = feb1, dim = c(2, length(feb1)/2))))
-try(tmar1 <- t(array(data = mar1, dim = c(2, length(mar1)/2))))
-try(tapr1 <- t(array(data = apr1, dim = c(2, length(apr1)/2))))
-try(tmay1 <- t(array(data = may1, dim = c(2, length(may1)/2))))
-try(tjun1 <- t(array(data = jun1, dim = c(2, length(jun1)/2))))
-try(tjul1 <- t(array(data = jul1, dim = c(2, length(jul1)/2))))
-try(taug1 <- t(array(data = aug1, dim = c(2, length(aug1)/2))))
-try(tsep1 <- t(array(data = sep1, dim = c(2, length(sep1)/2))))
-try(toct1 <- t(array(data = oct1, dim = c(2, length(oct1)/2))))
-try(tnov1 <- t(array(data = nov1, dim = c(2, length(nov1)/2))))
-try(tdec1 <- t(array(data = dec1, dim = c(2, length(dec1)/2))))
+if(!is.null(jan1)){tjan1 <- t(array(data = jan1, dim = c(2, length(jan1)/2)))}
+if(!is.null(feb1)){tfeb1 <- t(array(data = feb1, dim = c(2, length(feb1)/2)))}
+if(!is.null(mar1)){tmar1 <- t(array(data = mar1, dim = c(2, length(mar1)/2)))}
+if(!is.null(apr1)){tapr1 <- t(array(data = apr1, dim = c(2, length(apr1)/2)))}
+if(!is.null(may1)){tmay1 <- t(array(data = may1, dim = c(2, length(may1)/2)))}
+if(!is.null(jun1)){tjun1 <- t(array(data = jun1, dim = c(2, length(jun1)/2)))}
+if(!is.null(jul1)){tjul1 <- t(array(data = jul1, dim = c(2, length(jul1)/2)))}
+if(!is.null(aug1)){taug1 <- t(array(data = aug1, dim = c(2, length(aug1)/2)))}
+if(!is.null(sep1)){tsep1 <- t(array(data = sep1, dim = c(2, length(sep1)/2)))}
+if(!is.null(oct1)){toct1 <- t(array(data = oct1, dim = c(2, length(oct1)/2)))}
+if(!is.null(nov1)){tnov1 <- t(array(data = nov1, dim = c(2, length(nov1)/2)))}
+if(!is.null(dec1)){tdec1 <- t(array(data = dec1, dim = c(2, length(dec1)/2)))}
 
 files.by.month <- list("monthly_24h" = list("jan" = tjan24,
 					 "feb" = tfeb24,

@@ -134,10 +134,23 @@ wrk_files$monthly_1h$dec <- array(c(paste0(outdir, shp.name, available.files$mon
 
 #load functions to do temporal aggregations
 #monthly stats
-clim(wrk_files$monthly_1h$jan, outdir)
+month_stats <- T
+if(month_stats){
+	outdir <- paste0(outdir, shp.name, "/month/", )
+	clim(wrk_files$monthly_24h$jan, outdir)
+}
 
 #seasonal stats
-clim(wrk_files$monthly_1h$jan, outdir)
+#seas_stats <- T
+#if(seas_stats){
+#	outdir <- paste0(outdir, shp.name, "/seas/", )
+#	clim(wrk_files$monthly_24h$jan, outdir)
+#}
 
 #yearly stats
-clim(wrk_files$monthly_1h$jan, outdir)
+#year_stats <- T
+#if(year_stats){
+#	outdir <- paste0(outdir, shp.name, "/year/", )
+#	clim(wrk_files$monthly_24h$jan, outdir)
+#}
+
