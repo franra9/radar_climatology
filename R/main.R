@@ -137,7 +137,7 @@ wrk_files$monthly_1h$dec <- array(c(paste0(outdir, shp.name, available.files$mon
 month_stats <- T
 if(month_stats){
 	outdir <- paste0(outdir, shp.name, "/month/", )
-	clim(wrk_files$monthly_24h$jan, outdir)
+	clim(filein=wrk_files$monthly_24h$jan, outdir)
 }
 
 #seasonal stats
