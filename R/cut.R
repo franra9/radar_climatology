@@ -15,6 +15,6 @@ cut_files <- function(available.files = NULL, shp.dir = NULL, outdir = NULL){
 			dir.create(path = paste0(outdir, shp.name, available.files[i]), recursive=T)
 			writeRaster(area, paste0(outdir, shp.name, available.files[i]), overwrite=T) #save cut image
 		}
-		print(paste0("Existing files from ", date.ini," to ", date.fin, " have been cut and saved at", outdir, shp.name, "/"))
+		print(paste0("Existing", month, "files from ", date.ini," to ", date.fin, " have been cut and saved at", outdir, shp.name, "/"))
 	}
 }
