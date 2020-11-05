@@ -7,8 +7,8 @@
   argv <- commandArgs(trailingOnly = TRUE)
   date.ini <- as.Date(x = as.character(argv[1]), format = "%Y%m%d")
   date.fin <- as.Date(x = as.character(argv[2]), format = "%Y%m%d")
-  date.ini <- as.Date(x = as.character(20180101), format = "%Y%m%d")
-  date.fin <- as.Date(x = as.character(20190301), format = "%Y%m%d")
+  date.ini <- as.Date(x = as.character(20180201), format = "%Y%m%d") #must be the first day of the month
+  date.fin <- as.Date(x = as.character(20190228), format = "%Y%m%d") #must be the last day of the month
 
 if(date.ini < as.Date(x = as.character(20130101), format = "%Y%m%d")) {
 	stop(paste0("Initial date ", date.ini, " is out of range"))
@@ -24,7 +24,7 @@ source("./clim.R")
 # load create available data vectors function
 source("./data_check.R")
 
-available.files <- exists_data(date.ini, date.fin, data.dir)
+available.files <- exists_data(date.ini, date.fin, data.dir) # list with available and not available files
 
 #load funtions to cut files
 source("./cut.R")
@@ -153,18 +153,18 @@ wrk_files$monthly_1h$dec <- array(c(paste0(outdir, shp.name, available.files$mon
 out <- paste0(outdir, shp.name, "/month/")
 dir.create(out, recursive = T)
 
-clim(filein = wrk_files$monthly_24h$jan, outdir = paste0(out, "jan_"))
-clim(filein = wrk_files$monthly_24h$feb, outdir = paste0(out, "feb_"))
-clim(filein = wrk_files$monthly_24h$mar, outdir = paste0(out, "mar_"))
-clim(filein = wrk_files$monthly_24h$apr, outdir = paste0(out, "apr_"))
-clim(filein = wrk_files$monthly_24h$may, outdir = paste0(out, "may_"))
-clim(filein = wrk_files$monthly_24h$jun, outdir = paste0(out, "jun_"))
-clim(filein = wrk_files$monthly_24h$jul, outdir = paste0(out, "jul_"))
-clim(filein = wrk_files$monthly_24h$aug, outdir = paste0(out, "aug_"))
-clim(filein = wrk_files$monthly_24h$sep, outdir = paste0(out, "sep_"))
-clim(filein = wrk_files$monthly_24h$oct, outdir = paste0(out, "oct_"))
-clim(filein = wrk_files$monthly_24h$nov, outdir = paste0(out, "nov_"))
-clim(filein = wrk_files$monthly_24h$dec, outdir = paste0(out, "dec_"))
+clim(filein = wrk_files$monthly_24h$jan, outdir = paste0(out, "jan_"), length(available.files$not_monthly$jan), corr=T)
+clim(filein = wrk_files$monthly_24h$feb, outdir = paste0(out, "feb_"), length(available.files$not_monthly$feb), corr=T)
+clim(filein = wrk_files$monthly_24h$mar, outdir = paste0(out, "mar_"), length(available.files$not_monthly$mar), corr=T)
+clim(filein = wrk_files$monthly_24h$apr, outdir = paste0(out, "apr_"), length(available.files$not_monthly$apr), corr=T)
+clim(filein = wrk_files$monthly_24h$may, outdir = paste0(out, "may_"), length(available.files$not_monthly$may), corr=T)
+clim(filein = wrk_files$monthly_24h$jun, outdir = paste0(out, "jun_"), length(available.files$not_monthly$jun), corr=T)
+clim(filein = wrk_files$monthly_24h$jul, outdir = paste0(out, "jul_"), length(available.files$not_monthly$jul), corr=T)
+clim(filein = wrk_files$monthly_24h$aug, outdir = paste0(out, "aug_"), length(available.files$not_monthly$aug), corr=T)
+clim(filein = wrk_files$monthly_24h$sep, outdir = paste0(out, "sep_"), length(available.files$not_monthly$sep), corr=T)
+clim(filein = wrk_files$monthly_24h$oct, outdir = paste0(out, "oct_"), length(available.files$not_monthly$oct), corr=T)
+clim(filein = wrk_files$monthly_24h$nov, outdir = paste0(out, "nov_"), length(available.files$not_monthly$nov), corr=T)
+clim(filein = wrk_files$monthly_24h$dec, outdir = paste0(out, "dec_"), length(available.files$not_monthly$dec), corr=T)
 
 #seasonal stats
 #seas_stats <- T
