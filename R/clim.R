@@ -8,7 +8,7 @@ clim <- function(filein = NULL, outdir = NULL, non_exist,corr = F){
 		}
 		if(corr){
 			sumtot <- sumtot * length(filein[,1])/(length(filein[,1]) + non_exist)
-			sufix <- "_corr_"
+			sufix <- "_corr"
 		} else {
 			sufix <- ""			
 		}

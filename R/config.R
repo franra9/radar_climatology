@@ -35,7 +35,7 @@ int_an <- F #intensity analysis (expensive in computing default=F)
  
 print("Configuration has been loaded, with this parameters:")
 cat("Repository directory: "); print(rep.dir)
-cat("Data source: "); print(rep.dir)
-cat("Results directory: "); print(rep.dir)
-cat("Shape path: "); print(rep.dir)
+cat("Data source: "); print(data.dir)
+cat("Results directory: "); print(outdir)
+cat("Shape path: "); print(shp.dir)
 

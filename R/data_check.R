@@ -155,7 +155,7 @@ if(!is.null(nov1)){tnov1 <- t(array(data = nov1, dim = c(2, length(nov1)/2)))}
 if(!is.null(dec1)){tdec1 <- t(array(data = dec1, dim = c(2, length(dec1)/2)))}
 
 #t() does not like NULL values
-#dayly
+#daily
 if(!is.null(njan24)){ntjan24 <- t(array(data = njan24, dim = c(2, length(njan24)/2)))}
 if(!is.null(nfeb24)){ntfeb24 <- t(array(data = nfeb24, dim = c(2, length(nfeb24)/2)))}
 if(!is.null(nmar24)){ntmar24 <- t(array(data = nmar24, dim = c(2, length(nmar24)/2)))}
@@ -163,7 +163,7 @@ if(!is.null(napr24)){ntapr24 <- t(array(data = napr24, dim = c(2, length(napr24)
 if(!is.null(nmay24)){ntmay24 <- t(array(data = nmay24, dim = c(2, length(nmay24)/2)))}
 if(!is.null(njun24)){ntjun24 <- t(array(data = njun24, dim = c(2, length(njun24)/2)))}
 if(!is.null(njul24)){ntjul24 <- t(array(data = njul24, dim = c(2, length(njul24)/2)))}
-if(!is.null(noct24)){ntaug24 <- t(array(data = naug24, dim = c(2, length(naug24)/2)))}
+if(!is.null(naug24)){ntaug24 <- t(array(data = naug24, dim = c(2, length(naug24)/2)))}
 if(!is.null(nsep24)){ntsep24 <- t(array(data = nsep24, dim = c(2, length(nsep24)/2)))}
 if(!is.null(noct24)){ntoct24 <- t(array(data = noct24, dim = c(2, length(noct24)/2)))}
 if(!is.null(nnov24)){ntnov24 <- t(array(data = nnov24, dim = c(2, length(nnov24)/2)))}
