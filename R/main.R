@@ -7,7 +7,7 @@
   argv <- commandArgs(trailingOnly = TRUE)
   date.ini <- as.Date(x = as.character(argv[1]), format = "%Y%m%d")
   date.fin <- as.Date(x = as.character(argv[2]), format = "%Y%m%d")
-  date.ini <- as.Date(x = as.character(20130201), format = "%Y%m%d") #must be the first day of the month
+  date.ini <- as.Date(x = as.character(20180201), format = "%Y%m%d") #must be the first day of the month
   date.fin <- as.Date(x = as.character(20190930), format = "%Y%m%d") #must be the last day of the month
 
 if(date.ini < as.Date(x = as.character(20130101), format = "%Y%m%d")) {
