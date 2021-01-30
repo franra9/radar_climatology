@@ -2,12 +2,12 @@
 # this script cuts the tiff data files with the shape defined at shape.dir #
 ############################################################################
 
-cut_files <- function(available.files = NULL, shp.dir = NULL, outdir = NULL){
+cut_files <- function(available.files = NULL, shp.dir = NULL, outdir = NULL, datadir = NULL){
 	if(is.null(available.files)){
 		warning("Month with NULL files, current month has been skipped")
 	} else { 
 		shape <- shapefile(shp.dir)
-		files.list <- paste0(data.dir, available.files)
+		files.list <- paste0(datadir, available.files)
 		for(i in 1:length(files.list)){
 			tif <- raster(files.list[i])
 			tiff <- projectRaster(from = tif, crs = crs("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
