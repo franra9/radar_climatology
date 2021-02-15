@@ -23,7 +23,7 @@ source("./cut.R")
 
 available.files <- exists_data(date.ini, date.fin, data.dir) # list with available and not available files
 
-months = to.lower(month.abb)
+months = tolower(month.abb)
 
 wrk_files <- list()
 
@@ -36,12 +36,12 @@ for (imonth in months) {
 	}
 
 	#working cut files daily
-	wrk_files$monthly_24h[[imonth]] <- array(c(paste0(outdir, shp.name, available.files$monthly_24h$[[imonth]][,1]),
+	wrk_files$monthly_24h[[imonth]] <- array(c(paste0(outdir, shp.name, available.files$monthly_24h[[imonth]][,1]),
 					available.files$monthly_24h[[imonth]][,2]),
 					dim=c(length(available.files$monthly_24h[[imonth]][,2]), 2))
 
 	if (int_an) {
-		wrk_files$monthly_1h$[[imonth]][,1] <- array(c(paste0(outdir, shp.name, available.files$monthly_1h$[[imonth]][,1]),
+		wrk_files$monthly_1h[[imonth]][,1] <- array(c(paste0(outdir, shp.name, available.files$monthly_1h[[imonth]][,1]),
 					available.files$monthly_1h[[imonth]][,2]),
 					dim=c(length(available.files$monthly_1h[[imonth]][,2]), 2))
 	}
