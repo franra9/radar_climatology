@@ -22,5 +22,5 @@ clim <- function(filein = NULL, outdir = NULL, non_exist,corr = F){
 		# Write file
 		writeRaster(sumtot/nyear, fileout, overwrite=T)
 		print(paste0("Monthly mean written at ", fileout))
-	}
+	} 
 

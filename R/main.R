@@ -7,7 +7,7 @@
 argv <- commandArgs(trailingOnly = TRUE)
 date.ini <- as.Date(x = as.character(argv[1]), format = "%Y%m%d")
 date.fin <- as.Date(x = as.character(argv[2]), format = "%Y%m%d")
-date.ini <- as.Date(x = as.character(20180201), format = "%Y%m%d") #must be the first day of the month
+date.ini <- as.Date(x = as.character(20180101), format = "%Y%m%d") #must be the first day of the month
 date.fin <- as.Date(x = as.character(20190930), format = "%Y%m%d") #must be the last day of the month
 
 if(date.ini < as.Date(x = as.character(20130101), format = "%Y%m%d")) {
@@ -26,6 +26,7 @@ available.files <- exists_data(date.ini, date.fin, data.dir) # list with availab
 months = tolower(month.abb)
 
 wrk_files <- list()
+month_fileout <- NULL #array containing monthly filenames
 
 for (imonth in months) {
 	month <- paste0("(", imonth, ")")
@@ -49,5 +50,45 @@ for (imonth in months) {
 	# Monthy stats
 	out <- paste0(outdir, shp.name, "/month/")
 	dir.create(out, recursive = T)
-	clim(filein = wrk_files$monthly_24h[[imonth]], outdir = paste0(out, imonth, "_"), length(available.files$not_monthly[[imonth]]), corr=T)
+	outdir1 = paste0(out, imonth, "_")
+	filein = wrk_files$monthly_24h[[imonth]]
+	
+	clim(filein, outdir1, length(available.files$not_monthly[[imonth]]), corr=T)
+	
+	month_fileout <- c(month_fileout, paste0(outdir1, 
+		levels(factor(filein[,2]))[1],
+		"-",
+		levels(factor(filein[,2]))[length(levels(factor(filein[,2])))],
+		"_corr",
+		".tif"))
 }
+
+# Seasonal stats
+ #sumar de 3 en 3
+ djf <- sum(raster(month_fileout[12]), 
+ 		raster(month_fileout[1]),
+ 		raster(month_fileout[2]))
+ mam <- sum(raster(month_fileout[3]), 
+ 		raster(month_fileout[4]),
+ 		raster(month_fileout[5]))
+ jja <- sum(raster(month_fileout[6]), 
+ 		raster(month_fileout[7]),
+ 		raster(month_fileout[8]))
+ son <- sum(raster(month_fileout[9]), 
+ 		raster(month_fileout[10]),
+ 		raster(month_fileout[11]))
+
+# Annual stats
+ # tots
+ anual <- sum(raster(month_fileout[1]), 
+ 		raster(month_fileout[2]),
+ 		raster(month_fileout[3]),
+ 		raster(month_fileout[4]), 
+ 		raster(month_fileout[5]),
+ 		raster(month_fileout[6]),
+ 		raster(month_fileout[7]), 
+ 		raster(month_fileout[8]),
+ 		raster(month_fileout[9]),
+ 		raster(month_fileout[10]), 
+ 		raster(month_fileout[11]),
+ 		raster(month_fileout[12]))
