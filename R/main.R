@@ -7,7 +7,7 @@
 argv <- commandArgs(trailingOnly = TRUE)
 date.ini <- as.Date(x = as.character(argv[1]), format = "%Y%m%d")
 date.fin <- as.Date(x = as.character(argv[2]), format = "%Y%m%d")
-date.ini <- as.Date(x = as.character(20180101), format = "%Y%m%d") #must be the first day of the month
+date.ini <- as.Date(x = as.character(20130101), format = "%Y%m%d") #must be the first day of the month
 date.fin <- as.Date(x = as.character(20190930), format = "%Y%m%d") #must be the last day of the month
 
 if(date.ini < as.Date(x = as.character(20130101), format = "%Y%m%d")) {
@@ -63,6 +63,9 @@ for (imonth in months) {
 		".tif"))
 }
 
+dir.create(outdir, paste0(shp.name, "/seas"), recursive = T)
+dir.create(outdir, paste0(shp.name, "/anual"), recursive = T)
+
 # Seasonal stats
  #sumar de 3 en 3
  djf <- sum(raster(month_fileout[12]), 
@@ -78,6 +81,13 @@ for (imonth in months) {
  		raster(month_fileout[10]),
  		raster(month_fileout[11]))
 
+writeRaster(djf , paste0(outdir, shp.name, "/djf.tif"), overwrite = T)
+writeRaster(mam , paste0(outdir, shp.name, "/mam.tif"), overwrite = T)
+writeRaster(jja , paste0(outdir, shp.name, "/jja.tif"), overwrite = T)
+writeRaster(son , paste0(outdir, shp.name, "/son.tif"), overwrite = T)
+
+print(paste0("Seasonal mean written at ", data.dir, shp.name, "/"))
+
 # Annual stats
  # tots
  anual <- sum(raster(month_fileout[1]), 
@@ -92,3 +102,6 @@ for (imonth in months) {
  		raster(month_fileout[10]), 
  		raster(month_fileout[11]),
  		raster(month_fileout[12]))
+ 		
+writeRaster(anual , paste0(outdir, shp.name, "/anual.tif"), overwrite = T)
+print(paste0("Seasonal mean written at ", data.dir, shp.name, "/"))
