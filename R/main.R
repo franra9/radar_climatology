@@ -43,7 +43,7 @@ for (imonth in months) {
 	if (!int_an){
 	  cut_files(available.files$monthly_24h[[imonth]][,1], shp.dir, outdir)
 	}
-	
+
 	if (int_an) {
 		cut_files(available.files$monthly_1h[[imonth]][,1], shp.dir, outdir)
 	}
@@ -54,7 +54,7 @@ for (imonth in months) {
 					available.files$monthly_24h[[imonth]][,2]),
 					dim=c(length(available.files$monthly_24h[[imonth]][,2]), 2))
 	}
-	
+
 	if (int_an) {
 		wrk_files$monthly_1h[[imonth]] <- array(c(paste0(outdir, shp.name, available.files$monthly_1h[[imonth]][,1]),
 					available.files$monthly_1h[[imonth]][,2]),
@@ -69,28 +69,15 @@ for (imonth in months) {
 	  filein = wrk_files$monthly_24h[[imonth]]
 	
 	  clim(filein, outdir1, length(available.files$not_monthly_24h[[imonth]]), corr=T)
-	
-	  #month_fileout <- c(month_fileout, paste0(outdir1, 
-		#  levels(factor(filein[,2]))[1],
-		#  "-",
-		#  levels(factor(filein[,2]))[length(levels(factor(filein[,2])))],
-		#  "_corr",
-		#  ".tif"))
+
 	}
 	if (int_an){
 	  out <- paste0(outdir, shp.name, "/month_int/")
 	  dir.create(out, recursive = T)
 	  outdir1 = paste0(out, imonth, "_")
 	  filein = wrk_files$monthly_1h[[imonth]]
-	  
+
 	  clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
-	  
-	  #month_fileout <- c(month_fileout, paste0(outdir1, 
-	 #                                          levels(factor(filein[,2]))[1],
-	 #                                          "-",
-	 #                                          levels(factor(filein[,2]))[length(levels(factor(filein[,2])))],
-	 #                                          "_corr",
-	 #                                          ".tif"))
 	}
 }
 
