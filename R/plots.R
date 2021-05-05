@@ -218,4 +218,5 @@ spplot(tif,
 # Close the png file
 dev.off() 
 
-print(paste0("Monthly plots for ", shp.name ," have been produced"))
+print(paste0("Monthly plots for ", shp.name ," have been produced and stored in", outdir))
+
