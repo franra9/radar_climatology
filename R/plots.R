@@ -2,14 +2,6 @@
 
 source("./config.R")
 
-#tif <- raster("outdir/LIASE_A/month/feb_2013-2019_corr.tif")
-#feb_1 <- aggregate(tif, 1) #remostreo a 1km
-#feb_df <- as.data.frame(feb_1, xy = T)
-#colnames(feb_df) <- c("lon","lat","mm")
-
-#feb <- spplot(tif
-#              yaxis=)
-
 # plot shapefiles
 east <- shapefile("/home/francesc/data/radar_SMC_ppt_TFG/shape/LIASE_a_est_2.shp")
 area_a <- shapefile("/home/francesc/data/radar_SMC_ppt_TFG/shape/LIASE_area_interior.shp") #rectangle que fem servir de motlle
