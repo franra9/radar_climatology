@@ -3,17 +3,17 @@
 
 ########################################################################
 # It is excecuted in the form "Rscript main.R initial_date final_date" #
-########################################################################
+############################  ############################################
 argv <- commandArgs(trailingOnly = TRUE)
 date.ini <- as.Date(x = as.character(argv[1]), format = "%Y%m%d")
 date.fin <- as.Date(x = as.character(argv[2]), format = "%Y%m%d")
 date.ini <- as.Date(x = as.character(20130101), format = "%Y%m%d") #must be the first day of the month
 #date.ini <- as.Date(x = as.character(20180801), format = "%Y%m%d") #must be the first day of the month
-date.fin <- as.Date(x = as.character(20190930), format = "%Y%m%d") #must be the last day of the month
+date.fin <- as.Date(x = as.character(20210331), format = "%Y%m%d") #must be the last day of the month
 
 if(date.ini < as.Date(x = as.character(20130101), format = "%Y%m%d")) {
 	stop(paste0("Initial date ", date.ini, " is out of range"))
-} else if (date.fin > as.Date(x = as.character(20191001), format = "%Y%m%d")){
+} else if (date.fin > as.Date(x = as.character(20210331), format = "%Y%m%d")){
 	stop(paste0("End date ", date.fin, " is out of range"))
 }
 
@@ -36,16 +36,16 @@ event_high <- list()
 
 ppt_low0 <- ppt_mod0 <- ppt_high0 <- event_low0 <- event_mod0 <- event_high0 <- 0
 
-month_fileout <- NULL #array containing monthly filenames
+month_fileout <- NULL #array containing monthly filenames 
 
 for (imonth in months) {
 	month <- paste0("(", imonth, ")")
 	if (!int_an){
-	  cut_files(available.files$monthly_24h[[imonth]][,1], shp.dir, outdir)
+	  #cut_files(available.files$monthly_24h[[imonth]][,1], shp.dir, outdir)
 	}
 
 	if (int_an) {
-		cut_files(available.files$monthly_1h[[imonth]][,1], shp.dir, outdir)
+		#cut_files(available.files$monthly_1h[[imonth]][,1], shp.dir, outdir)
 	}
 
 	#working cut files daily
@@ -69,7 +69,13 @@ for (imonth in months) {
 	  filein = wrk_files$monthly_24h[[imonth]]
 	
 	  clim(filein, outdir1, length(available.files$not_monthly_24h[[imonth]]), corr=T)
-
+	  
+	  month_fileout <- c(month_fileout, paste0(outdir1, 
+	                                           levels(factor(filein[,2]))[1],
+	                                           "-",
+	                                           levels(factor(filein[,2]))[length(levels(factor(filein[,2])))],
+	                                           "_corr",
+	                                           ".tif"))
 	}
 	if (int_an){
 	  out <- paste0(outdir, shp.name, "/month_int/")
@@ -77,7 +83,7 @@ for (imonth in months) {
 	  outdir1 = paste0(out, imonth, "_")
 	  filein = wrk_files$monthly_1h[[imonth]]
 
-	  clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
+	  #clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
 	}
 }
 
@@ -99,13 +105,13 @@ if (!int_an){
   son <- sum(raster(month_fileout[9]), 
   		raster(month_fileout[10]),
   		raster(month_fileout[11]))
-
+    
   writeRaster(djf , paste0(outdir, shp.name, "/djf.tif"), overwrite = T)
   writeRaster(mam , paste0(outdir, shp.name, "/mam.tif"), overwrite = T)
   writeRaster(jja , paste0(outdir, shp.name, "/jja.tif"), overwrite = T)
   writeRaster(son , paste0(outdir, shp.name, "/son.tif"), overwrite = T)
 
-  print(paste0("Seasonal mean written at ", data.dir, shp.name, "/"))
+    print(paste0("Seasonal mean written at ", data.dir, shp.name, "/"))
 
   # Annual stats
    # tots
@@ -123,7 +129,7 @@ if (!int_an){
   		raster(month_fileout[12]))
  		
     writeRaster(anual , paste0(outdir, shp.name, "/anual.tif"), overwrite = T)
-    print(paste0("Seasonal mean written at ", data.dir, shp.name, "/"))
+    print(paste0("Anual mean written at ", data.dir, shp.name, "/"))
 }
 
 # intensity (hourly) analysis
@@ -135,7 +141,7 @@ if(int_an){
       tif <- tif0 <- raster(filein[i,1])
       if(maxValue(tif) > 0){
       
-        #count events
+        #count events intensities 0, 0.3, 0.8 mm/h    
         event_low <- (tif > 0 & tif < 0.3 )
         event_mod  <- (tif >= 0.3 & tif <= 0.8 )
         event_high  <- (tif > 0.8)
@@ -163,6 +169,10 @@ if(int_an){
     writeRaster(ppt_mod0, paste0(outdir, shp.name, "/month_int/ppt_mod_", imonth, ".tif"), overwrite=T)
     writeRaster(ppt_high0, paste0(outdir, shp.name, "/month_int/ppt_high_", imonth, ".tif"), overwrite=T)
     print(paste0(imonth, " ppt acumulation completed"))
+    
+    # reinitialize
+    ppt_low0 <- ppt_mod0 <- ppt_high0 <- event_low0 <- event_mod0 <- event_high0 <- 0
+    
   }
 }
   
