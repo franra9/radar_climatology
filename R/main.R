@@ -8,8 +8,8 @@ argv <- commandArgs(trailingOnly = TRUE)
 date.ini <- as.Date(x = as.character(argv[1]), format = "%Y%m%d")
 date.fin <- as.Date(x = as.character(argv[2]), format = "%Y%m%d")
 date.ini <- as.Date(x = as.character(20130101), format = "%Y%m%d") #must be the first day of the month
-#date.ini <- as.Date(x = as.character(20180801), format = "%Y%m%d") #must be the first day of the month
-date.fin <- as.Date(x = as.character(20210331), format = "%Y%m%d") #must be the last day of the month
+date.ini <- as.Date(x = as.character(20141231), format = "%Y%m%d") #must be the first day of the month
+#date.fin <- as.Date(x = as.character(20210331), format = "%Y%m%d") #must be the last day of the month
 
 if(date.ini < as.Date(x = as.character(20130101), format = "%Y%m%d")) {
 	stop(paste0("Initial date ", date.ini, " is out of range"))
@@ -83,7 +83,7 @@ for (imonth in months) {
 	  outdir1 = paste0(out, imonth, "_")
 	  filein = wrk_files$monthly_1h[[imonth]]
 
-	  #clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
+	  clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
 	}
 }
 
@@ -141,10 +141,10 @@ if(int_an){
       tif <- tif0 <- raster(filein[i,1])
       if(maxValue(tif) > 0){
       
-        #count events intensities 0, 0.3, 0.8 mm/h    
-        event_low <- (tif > 0 & tif < 0.3 )
-        event_mod  <- (tif >= 0.3 & tif <= 0.8 )
-        event_high  <- (tif > 0.8)
+        #count events intensities 0, 0.3, 0.8 mm/h ### change it 3,7.6
+        event_low <- (tif > 0 & tif < 3 )
+        event_mod  <- (tif >= 3 & tif <= 7.6 )
+        event_high  <- (tif > 7.6)
       
         event_low0 <- event_low + event_low0
         event_mod0 <- event_mod + event_mod0
