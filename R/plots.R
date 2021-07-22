@@ -212,3 +212,20 @@ dev.off()
 
 print(paste0("Monthly plots for ", shp.name ," have been produced and stored in", outdir))
 
+dev.off() 
+
+mmm <- "anual"
+tif <- raster(paste0(outdir,"/", shp.name,"/",mmm,".tif"))
+png(paste0(outdir,"plots/",mmm,".png"))
+spplot(tif,
+       main=list(label=paste0(mmm, " mean precipitation (mm)"),cex=1),
+       at=c(seq(minValue(tif), quantile(tif, 0.99), (quantile(tif, 0.99) - minValue(tif))/10),quantile(tif, 0.99) + 5 ),
+       col.regions = pal(400),
+       scales = list(draw = TRUE),
+       xlab = "longitude", ylab = "latitude",
+       sp.layout = list(list(area_a, fill=NA, first=FALSE), 
+                        list(east, fill=NA, first=FALSE),
+                        list(comarques, fill=NA, first=FALSE)))
+# Close the png file
+dev.off() 
+

@@ -64,7 +64,8 @@ if(any(months[2:3] == month)){
 
   shape <- shapefile("/home/francesc/data/radar_SMC_ppt_TFG/shape/LIASE_a_est_2.shp")
 
-  sum <- ppt_low + ppt_low*0
+  sum <- event_low + event_low*0
+  sum <- event_low + event_mod + event_high
   # maps from hourly basis
   # accumulation
   #sum <- ppt_high + ppt_mod + ppt_low
@@ -95,9 +96,9 @@ if(any(months[2:3] == month)){
   dat2 = data.frame(acc_ppt=Vectorize(a0$layer), group="west")
   dat = rbind(dat1, dat2)
   
-  png(paste0(outdir,"plots/hist_lo_ppt_",month,".png"))
+  png(paste0(outdir,"plots/hist_1_event_",month,".png"))
   ggplot(dat, aes(acc_ppt, fill=group, colour=group)) +
     geom_histogram(aes(y=..density..), alpha=0.6, 
                    position="identity", lwd=0.2) +
-    ggtitle(paste0("Normalized ppt distribution lo.int. ",month ))
+    ggtitle(paste0("Normalized distribution. ppt #events ",month ))
   dev.off()
