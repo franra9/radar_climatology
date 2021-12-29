@@ -15,11 +15,18 @@ months <- c("jan",
             "nov",
             "dec")
 # this applies to hourly analysis normalize (do average) #
-if(any(months[2:3] == month)){
-  nor <- 2021 - 2013 +1
-} else {
-  nor <- 2020 - 2013 +1
-}
+#if(any(months[2:3] == month)){
+#  nor <- 2021 - 2013 +1
+#} else {
+#  nor <- 2020 - 2013 +1
+#}
+yearini <- "2013"
+for( yearini in c(2013:2019)){
+  for(month in months){
+  yearfin <- as.character(as.integer(yearini)+1)
+  nor<-2
+  
+  period <- paste0(yearini,"-",yearfin)
 ###################################
 
 #for(month in months){
@@ -54,21 +61,22 @@ if(any(months[2:3] == month)){
 #    ggtitle("Normalized")
 #  dev.off()
 #}
-  event_high <- raster(paste0(outdir, shp.name, "/month_int/event_high_",month,".tif"))
-  event_mod <- raster(paste0(outdir, shp.name, "/month_int/event_mod_",month,".tif"))
-  event_low <- raster(paste0(outdir, shp.name, "/month_int/event_low_",month,".tif"))
+  event_high <- raster(paste0(outdir, shp.name, "/month_int_",period,"/event_high_",month,".tif"))
+  event_mod <- raster(paste0(outdir, shp.name, "/month_int_",period,"/event_mod_",month,".tif"))
+  event_low <- raster(paste0(outdir, shp.name, "/month_int_",period,"/event_low_",month,".tif"))
 
-  ppt_high <- raster(paste0(outdir, shp.name, "/month_int/ppt_high_",month,".tif"))
-  ppt_mod <- raster(paste0(outdir, shp.name, "/month_int/ppt_mod_",month,".tif"))
-  ppt_low <- raster(paste0(outdir, shp.name, "/month_int/ppt_low_",month,".tif"))
+  ppt_high <- raster(paste0(outdir, shp.name, "/month_int_",period,"/ppt_high_",month,".tif"))
+  ppt_mod <- raster(paste0(outdir, shp.name, "/month_int_",period,"/ppt_mod_",month,".tif"))
+  ppt_low <- raster(paste0(outdir, shp.name, "/month_int_",period,"/ppt_low_",month,".tif"))
 
   shape <- shapefile("/home/francesc/data/radar_SMC_ppt_TFG/shape/LIASE_a_est_2.shp")
-
-  sum <- event_low + event_low*0
-  sum <- event_low + event_mod + event_high
+  
+  # events
+  #sum <- event_low + event_low*0
+  #sum <- event_low + event_mod + event_high
   # maps from hourly basis
   # accumulation
-  #sum <- ppt_high + ppt_mod + ppt_low
+  sum <- ppt_high + ppt_mod + ppt_low
   sum <- sum/nor
   # plot raster also:
   #tif <- sum
@@ -96,9 +104,13 @@ if(any(months[2:3] == month)){
   dat2 = data.frame(acc_ppt=Vectorize(a0$layer), group="west")
   dat = rbind(dat1, dat2)
   
-  png(paste0(outdir,"plots/hist_1_event_",month,".png"))
-  ggplot(dat, aes(acc_ppt, fill=group, colour=group)) +
-    geom_histogram(aes(y=..density..), alpha=0.6, 
+  png(paste0(outdir,"plots/hist_1_ppt_",month,"_", period,".png"))
+  pl <- ggplot(dat, aes(acc_ppt, fill=group, colour=group)) 
+  pl <- pl +  geom_histogram(aes(y=..density..), alpha=0.6, 
                    position="identity", lwd=0.2) +
     ggtitle(paste0("Normalized distribution. ppt #events ",month ))
+  print(pl)
+  pl<-NULL
   dev.off()
+}
+}

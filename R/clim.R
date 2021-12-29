@@ -6,7 +6,7 @@ clim <- function(filein = NULL, outdir = NULL, non_exist,corr = F){
 	  		tif <- raster(filein[i,1])
 	  		sumtot <- sumtot + tif
 		}
-		if(corr){ # Correction factor taking into account the missing files
+		if(corr){ # Correction factor taki  ng into account the missing files
 			sumtot <- sumtot * length(filein[,1])/(length(filein[,1]) + non_exist)
 			sufix <- "_corr"
 		} else {
