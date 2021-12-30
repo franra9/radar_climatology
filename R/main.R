@@ -40,12 +40,13 @@ available.files <- exists_data(date.ini, date.fin, data.dir) # list with availab
   
   for (imonth in months) {
   	month <- paste0("(", imonth, ")")
+  	files.list <- paste0(data.dir, available.files) #this is now inside cut function but it should be outside
   	if (!int_an){
-  	  cut_files(available.files$monthly_24h[[imonth]][,1], shp.dir, outdir)
+  	  #cut_files(available.files$monthly_24h[[imonth]][,1], shp.dir, outdir)
   	}
   
   	if (int_an) {
-  		cut_files(available.files$monthly_1h[[imonth]][,1], shp.dir, outdir)
+  		#cut_files(available.files$monthly_1h[[imonth]][,1], shp.dir, outdir)
   	}
   
   	#working cut files daily
@@ -62,14 +63,14 @@ available.files <- exists_data(date.ini, date.fin, data.dir) # list with availab
   	}
   
   	# Monthy stats
-  	if (!int_an){
+  	if (!int_an){ 
   	  out <- paste0(outdir, shp.name, "/month/")
   	  dir.create(out, recursive = T)
   	  outdir1 = paste0(out, imonth, "_")
   	  filein = wrk_files$monthly_24h[[imonth]]
-  	
-  	  clim(filein, outdir1, length(available.files$not_monthly_24h[[imonth]]), corr=T)
   	  
+  	  clim(filein, outdir1, length(available.files$not_monthly_24h[[imonth]]), corr=T)
+
   	  month_fileout <- c(month_fileout, paste0(outdir1, 
   	                                           levels(factor(filein[,2]))[1],
   	                                           "-",
@@ -78,21 +79,23 @@ available.files <- exists_data(date.ini, date.fin, data.dir) # list with availab
   	                                           ".tif"))
   	}
   	if (int_an){
-  	  out <- paste0(outdir, shp.name, "/month_int/")
+  	  out <- paste0(outdir, shp.name, "/month_int/", substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4),'/')
   	  dir.create(out, recursive = T)
   	  outdir1 = paste0(out, imonth, "_")
   	  filein = wrk_files$monthly_1h[[imonth]]
-  
-  	  clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
+  	
+  	  #clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
   	}
   }
   
-  dir.create(outdir, paste0(shp.name, "/seas"), recursive = T)
-  dir.create(outdir, paste0(shp.name, "/anual"), recursive = T)
+  #dir.create(outdir, paste0(shp.name, "/seas"), recursive = T)
+  #dir.create(outdir, paste0(shp.name, "/anual"), recursive = T)
   
-  if (!int_an){
+  if (!int_an){ #for liase
     # Seasonal stats
     #sumar de 3 en 3
+    print('hola')
+    print(month_fileout[1])
     djf <- sum(raster(month_fileout[12]), 
    	  	raster(month_fileout[1]),
    	  	raster(month_fileout[2]))
@@ -106,10 +109,10 @@ available.files <- exists_data(date.ini, date.fin, data.dir) # list with availab
     		raster(month_fileout[10]),
     		raster(month_fileout[11]))
       
-    writeRaster(djf , paste0(outdir, shp.name, "/djf.tif"), overwrite = T)
-    writeRaster(mam , paste0(outdir, shp.name, "/mam.tif"), overwrite = T)
-    writeRaster(jja , paste0(outdir, shp.name, "/jja.tif"), overwrite = T)
-    writeRaster(son , paste0(outdir, shp.name, "/son.tif"), overwrite = T)
+    writeRaster(djf , paste0(outdir, shp.name,  '/month/', substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "-djf.tif"), overwrite = T)
+    writeRaster(mam , paste0(outdir, shp.name,  '/month/', substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "-mam.tif"), overwrite = T)
+    writeRaster(jja , paste0(outdir, shp.name,  '/month/', substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "-jja.tif"), overwrite = T)
+    writeRaster(son , paste0(outdir, shp.name,  '/month/', substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "-son.tif"), overwrite = T)
   
       print(paste0("Seasonal mean written at ", data.dir, shp.name, "/"))
   
@@ -128,8 +131,8 @@ available.files <- exists_data(date.ini, date.fin, data.dir) # list with availab
     		raster(month_fileout[11]),
     		raster(month_fileout[12]))
    		
-      writeRaster(anual , paste0(outdir, shp.name, "/anual.tif"), overwrite = T)
-      print(paste0("Anual mean written at ", data.dir, shp.name, "/"))
+      writeRaster(anual , paste0(outdir, shp.name, '/month/', substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/anual.tif"), overwrite = T)
+      print(paste0("Anual mean written at ", data.dir, shp.name, '/month/', substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/"))
   }
   
   # intensity (hourly) analysis
@@ -160,14 +163,14 @@ available.files <- exists_data(date.ini, date.fin, data.dir) # list with availab
           ppt_high0 <- ppt_high + ppt_high0
         }
       }
-      writeRaster(event_low0, paste0(outdir, shp.name, "/month_int/event_low_", imonth, ".tif"), overwrite=T)
-      writeRaster(event_mod0, paste0(outdir, shp.name, "/month_int/event_mod_", imonth, ".tif"), overwrite=T)
-      writeRaster(event_high0, paste0(outdir, shp.name, "/month_int/event_high_", imonth, ".tif"), overwrite=T)
+      writeRaster(event_low0, paste0(outdir, shp.name, "/month_int/", substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/event_low_", imonth, ".tif"), overwrite=T)
+      writeRaster(event_mod0, paste0(outdir, shp.name, "/month_int/", substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/event_mod_", imonth, ".tif"), overwrite=T)
+      writeRaster(event_high0, paste0(outdir, shp.name, "/month_int/", substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/event_high_", imonth, ".tif"), overwrite=T)
       print(paste0(imonth, " event count completed"))
       
-      writeRaster(ppt_low0, paste0(outdir, shp.name, "/month_int/ppt_low_", imonth, ".tif"), overwrite=T)
-      writeRaster(ppt_mod0, paste0(outdir, shp.name, "/month_int/ppt_mod_", imonth, ".tif"), overwrite=T)
-      writeRaster(ppt_high0, paste0(outdir, shp.name, "/month_int/ppt_high_", imonth, ".tif"), overwrite=T)
+      writeRaster(ppt_low0, paste0(outdir, shp.name, "/month_int/", substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/ppt_low_", imonth, ".tif"), overwrite=T)
+      writeRaster(ppt_mod0, paste0(outdir, shp.name, "/month_int/", substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/ppt_mod_", imonth, ".tif"), overwrite=T)
+      writeRaster(ppt_high0, paste0(outdir, shp.name, "/month_int/", substr(date.ini, 1, 4),'-', substr(date.fin, 1, 4), "/ppt_high_", imonth, ".tif"), overwrite=T)
       print(paste0(imonth, " ppt acumulation completed"))
       
       # reinitialize
