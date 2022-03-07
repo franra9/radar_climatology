@@ -1,4 +1,6 @@
-#this script computes the climatology in different timescales
+# this script computes the climatology in different timescales
+# Author: froura 2021
+#
 
 clim <- function(filein = NULL, outdir = NULL, non_exist,corr = F){
 		sumtot<-0
