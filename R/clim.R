@@ -7,7 +7,7 @@ clim <- function(filein = NULL, outdir = NULL, non_exist,corr = F){
 	  		sumtot <- sumtot + tif
 		}
 		if(corr){ # Correction factor taking into account the missing files
-			sumtot <- sumtot * length(filein[,1])/(length(filein[,1]) + non_exist)
+			sumtot <- sumtot * (length(filein[,1]) + non_exist)/length(filein[,1])
 			sufix <- "_corr"
 		} else {
 			sufix <- ""			
