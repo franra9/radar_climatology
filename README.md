@@ -38,5 +38,9 @@ Info about the packges and versions used in the last successful run can be found
 
 Dirty scripts used some time to plot hystograms and rasters. Not operative but can be useful to have some ideas for further plots ;)
 
+### How to contribute
+
+`oper` branch is the opertive branch. Feel free to start from there. Open a pull request using `dev-` prefix in the pull request name.
+
 Author: Francesc Roura Adserias [Personal page](https://www.linkedin.com/in/francescroura/) , 2022
 
