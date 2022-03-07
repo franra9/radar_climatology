@@ -1,9 +1,10 @@
-# Author: Francesc Roura Adserias 29/08/2020
-# this script is the main script of the radar_climatology repository
-
 ########################################################################
-# It is excecuted in the form "Rscript main.R initial_date final_date" #
-############################  ############################################
+# Author: Francesc Roura Adserias 29/08/2020
+# This script is the main script of the radar_climatology repository
+# It is executed in the form "Rscript main.R initial_date final_date" #
+########################################################################
+
+# input arguments
 argv <- commandArgs(trailingOnly = TRUE)
 date.ini <- as.Date(x = as.character(argv[1]), format = "%Y%m%d")
 date.fin <- as.Date(x = as.character(argv[2]), format = "%Y%m%d")
@@ -11,12 +12,14 @@ date.ini <- as.Date(x = as.character(20130101), format = "%Y%m%d") #must be the 
 date.ini <- as.Date(x = as.character(20141231), format = "%Y%m%d") #must be the first day of the month
 #date.fin <- as.Date(x = as.character(20210331), format = "%Y%m%d") #must be the last day of the month
 
+#sanity check
 if(date.ini < as.Date(x = as.character(20130101), format = "%Y%m%d")) {
 	stop(paste0("Initial date ", date.ini, " is out of range"))
 } else if (date.fin > as.Date(x = as.character(20210331), format = "%Y%m%d")){
 	stop(paste0("End date ", date.fin, " is out of range"))
 }
 
+#load other scripts
 source("./config.R")
 source("./clim.R")
 source("./data_check.R")
@@ -38,30 +41,32 @@ ppt_low0 <- ppt_mod0 <- ppt_high0 <- event_low0 <- event_mod0 <- event_high0 <- 
 
 month_fileout <- NULL #array containing monthly filenames 
 
+#cut files according to shapefile intensity (1h) or daily (24h) accumulation files
 for (imonth in months) {
 	month <- paste0("(", imonth, ")")
-	if (!int_an){
-	  #cut_files(available.files$monthly_24h[[imonth]][,1], shp.dir, outdir)
+	if (!int_an){ 
+	  cut_files(available.files$monthly_24h[[imonth]][,1], shp.dir, outdir)
 	}
 
 	if (int_an) {
-		#cut_files(available.files$monthly_1h[[imonth]][,1], shp.dir, outdir)
+		cut_files(available.files$monthly_1h[[imonth]][,1], shp.dir, outdir)
 	}
 
-	#working cut files daily
+	# list of working cut files daily
 	if (!int_an){
 	  wrk_files$monthly_24h[[imonth]] <- array(c(paste0(outdir, shp.name, available.files$monthly_24h[[imonth]][,1]),
 					available.files$monthly_24h[[imonth]][,2]),
 					dim=c(length(available.files$monthly_24h[[imonth]][,2]), 2))
 	}
 
+	# list of working cut files hourly
 	if (int_an) {
 		wrk_files$monthly_1h[[imonth]] <- array(c(paste0(outdir, shp.name, available.files$monthly_1h[[imonth]][,1]),
 					available.files$monthly_1h[[imonth]][,2]),
 					dim=c(length(available.files$monthly_1h[[imonth]][,2]), 2))
 	}
 
-	# Monthy stats
+	# Monthy stats 24h
 	if (!int_an){
 	  out <- paste0(outdir, shp.name, "/month/")
 	  dir.create(out, recursive = T)
@@ -77,6 +82,7 @@ for (imonth in months) {
 	                                           "_corr",
 	                                           ".tif"))
 	}
+	# Monthy stats 1h
 	if (int_an){
 	  out <- paste0(outdir, shp.name, "/month_int/")
 	  dir.create(out, recursive = T)
@@ -86,6 +92,8 @@ for (imonth in months) {
 	  clim(filein, outdir1, length(available.files$not_monthly_1h[[imonth]]), corr=T)
 	}
 }
+
+# create output subdirs
 
 dir.create(outdir, paste0(shp.name, "/seas"), recursive = T)
 dir.create(outdir, paste0(shp.name, "/anual"), recursive = T)
@@ -150,7 +158,7 @@ if(int_an){
         event_mod0 <- event_mod + event_mod0
         event_high0 <- event_high + event_high0
         
-        #count precipitation acumulation
+        #count precipitation acumulation in different intensity events
         ppt_low <- mask(tif0, event_low, maskvalue=0,updatevalue=0)
         ppt_mod <- mask(tif0, event_mod, maskvalue=0,updatevalue=0)
         ppt_high <- mask(tif0, event_high, maskvalue=0,updatevalue=0) 

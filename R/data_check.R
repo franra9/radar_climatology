@@ -1,4 +1,6 @@
 # this script checks if data exists or not and exits a list of files and their respective year.
+# Author: froura 2021
+#
 
 exists_data <- function(date.ini = NULL, date.fin = NULL, data.dir = NULL)
 {
@@ -11,6 +13,7 @@ dd   <- format(dates,"%d")
 hh   <- c(paste0("0",0:9), 10:23)
 yyyy24 <- rep(yyyy, each = 24) #repeat year 24 times for each day
 
+## in daily steps
 all_dly <- paste0("/CMP24KG_24h/XXX/",yyyy,"/",mm,"/",dd,"/XXX_RNN_",yyyy,mm,dd,"_0000_CMP24KG_24h.tif")
 exist_dly  <- file.exists(paste0(data.dir,all_dly))
 exist_dailyi <- all_dly[exist_dly]
@@ -21,17 +24,14 @@ nyyyyd <- yyyy[!exist_dly]
 all_hrly1 <- paste0("/CMPAC1C_1h/",yyyy,"/",mm,"/",dd,"/XXX_RN1_",yyyy,mm,dd,"_")
 all_hrly <- paste0(expand.grid(hh, all_hrly1)$Var2, expand.grid(hh, all_hrly1)$Var1, "00_CMPAC1C_1h.tif")
 
+## in hourly steps
 exist_hrly  <- file.exists(paste0(data.dir,all_hrly))
 exist_hourlyi <- all_hrly[exist_hrly]
 yyyyh <- yyyy24[exist_hrly]
 nexist_hourlyi <- all_hrly[!exist_hrly]
 nyyyyh <- yyyy24[!exist_hrly]
 
-# Create list with available files
-#available.files <- list("daily" = exist_dailyi, "hourly" = exist_hourlyi, "dat_day" = exist_dly, "dat_hour" = exist_hrly)
-
-# Create list with not available files
-#not.available.files <- list("daily" = not_exist_dailyi, "hourly" = not_exist_hourlyi, "dat_day" = not_exist_dly, "dat_hour" = not_exist_hrly)
+#initialize variables
 
 jan24 <- feb24 <- mar24 <- apr24 <- may24 <- jun24 <- jul24 <- aug24 <- sep24 <- oct24 <- nov24 <- dec24 <- c(NULL)
 njan24 <- nfeb24 <- nmar24 <- napr24 <- nmay24 <- njun24 <- njul24 <- naug24 <- nsep24 <- noct24 <- nnov24 <- ndec24 <- c(NULL)
@@ -183,6 +183,7 @@ if(!is.null(noct1)){ntoct1 <- t(array(data = noct1, dim = c(2, length(noct1)/2))
 if(!is.null(nnov1)){ntnov1 <- t(array(data = nnov1, dim = c(2, length(nnov1)/2)))}
 if(!is.null(ndec1)){ntdec1 <- t(array(data = ndec1, dim = c(2, length(ndec1)/2)))}
 
+#existing and non existent hourly and daily files, by month.
 files.by.month <- list("monthly_24h" = list("jan" = tjan24,
 					 "feb" = tfeb24,
 					 "mar" = tmar24,

@@ -1,5 +1,6 @@
 ############################################################################
 # this script cuts the tiff data files with the shape defined at shape.dir #
+# author froura 2021  							     #
 ############################################################################
 
 cut_files <- function(available.files = NULL, shp.dir = NULL, outdir = NULL){
